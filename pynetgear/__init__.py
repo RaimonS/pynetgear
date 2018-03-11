@@ -86,7 +86,8 @@ class Netgear(object):
 
         # First element is the total device count
         if len(entries) > 1:
-            entry_count = convert(entries.pop(0), int)
+            entries.pop(0)
+            entry_count = len(entries)
         else:
             _LOGGER.error("Error parsing device-list: %s", entries)
             return None
@@ -103,7 +104,7 @@ class Netgear(object):
                 continue
 
             # Not all routers will report link type and rate
-            if len(info) == 7:
+            if len(info) == 7 or len(info) == 8:
                 link_type = info[4]
                 link_rate = convert(info[5], int)
                 signal = convert(info[6], int)
