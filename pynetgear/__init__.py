@@ -59,7 +59,7 @@ class Netgear(object):
 
         def parse_response(response):
             try:
-                result = re.search(REGEX_ATTACHED_DEVICES, response).group(1)
+                result = re.search(REGEX_ATTACHED_DEVICES, response,REGEX_ATTACHED_DEVICES_FLAG).group(1)
             except (AttributeError):
                 _LOGGER.error("Error parsing respone: %s", response)
                 return False, None
@@ -220,6 +220,7 @@ ACTION_GET_TRAFFIC_METER = \
     "urn:NETGEAR-ROUTER:service:DeviceConfig:1#GetTrafficMeterStatistics"
 
 REGEX_ATTACHED_DEVICES = r"<NewAttachDevice>(.*)</NewAttachDevice>"
+REGEX_ATTACHED_DEVICES_FLAG = re.S
 
 # Until we know how to generate it, give the one we captured
 SESSION_ID = "A7D88AE69687E58D9A00"
